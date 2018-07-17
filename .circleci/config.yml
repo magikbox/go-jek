@@ -11,8 +11,9 @@ jobs:
       - checkout
       - 
         restore_cache: 
-          key: 
+          keys: 
             - "v1-dependencies-{{ checksum \"package.json\" }}"
+            - v1-dependencies-
       - 
         run: 
           command: "yarn install\n"
