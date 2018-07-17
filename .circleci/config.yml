@@ -1,29 +1,33 @@
-version: 2
-
-jobs:
-  build:
-    branches:
-      only:
+--- 
+jobs: 
+  build: 
+    branches: 
+      only: 
         - source
-    docker:
-       - image: circleci/node:8.11-stretch-browsers
-    working_directory: ~/repo
-    steps:
+    docker: 
+      - 
+        image: "circleci/node:8.11-stretch-browsers"
+    steps: 
       - checkout
-      - restore_cache:
-          key:
-          - v1-dependencies-{{ checksum "package.json" }}
-      - run:
-          name: Install Dependencies
-          command: |
-            yarn install
-      - save_cache:
-          paths:
+      - 
+        restore_cache: 
+          key: 
+            - "v1-dependencies-{{ checksum \"package.json\" }}"
+      - 
+        run: 
+          command: "yarn install\n"
+          name: "Install Dependencies"
+      - 
+        save_cache: 
+          key: "v1-dependencies-{{ checksum \"package.json\" }}"
+          paths: 
             - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-      - run:
-          name: Build and Deploy
+      - 
+        run: 
           command: |
-            git config --global user.email "$GH_EMAIL"
-            git config --global user.name "$GH_NAME"
-            npm run deploy
+              git config --global user.email "$GH_EMAIL"
+              git config --global user.name "$GH_NAME"
+              npm run deploy
+          name: "Build and Deploy"
+    working_directory: ~/repo
+version: 2
